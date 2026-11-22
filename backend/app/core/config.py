@@ -149,7 +149,9 @@ class Settings(BaseSettings):
             "app_version": self.app_version,
             "environment": self.environment,
             "embedding_provider": self.embedding_provider,
-            "embedding_model": self.embedding_model,
+            "embedding_model": (
+                f"hash-{self.hash_embedding_dim}d (offline, lexical)" if self.embedding_provider == "hash" else self.embedding_model
+            ),
             "llm_provider": self.llm_provider,
             "llm_model": self.llm_model if self.llm_provider == "openai" else "extractive (local, no LLM)",
             "llm_configured": self.llm_enabled,

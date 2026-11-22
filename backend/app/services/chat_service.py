@@ -163,8 +163,11 @@ class ChatService:
                 generation_ms = 0.0
                 gen_mode, gen_model = self.generator.provider, self.generator.model
             else:
-                # The LLM sees the original question + history; the standalone form drives retrieval.
-                gen = self.generator.generate(question, sources, history)
+                # An LLM sees the original question plus history and resolves references itself.
+                # The extractive generator has no language understanding, so it scores
+                # sentences against the resolved standalone question instead.
+                gen_question = standalone if self.generator.provider == "extractive" else question
+                gen = self.generator.generate(gen_question, sources, history)
                 generation_ms = gen.latency_ms
                 gen_mode, gen_model = gen.provider, gen.model
                 if gen.input_tokens is not None or gen.output_tokens is not None:

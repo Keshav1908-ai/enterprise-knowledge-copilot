@@ -61,7 +61,10 @@ def split_sentences(text: str) -> list[str]:
 
 
 def _is_heading(sentence: str) -> bool:
-    return sentence.lstrip().startswith("#") or (len(sentence.split()) < 6 and not sentence.rstrip().endswith("."))
+    s = sentence.strip()
+    letters = [c for c in s if c.isalpha()]
+    shouting = bool(letters) and sum(c.isupper() for c in letters) / len(letters) > 0.8
+    return s.startswith("#") or shouting or (len(s.split()) < 6 and not s.endswith("."))
 
 
 class ExtractiveGenerator(BaseGenerator):
