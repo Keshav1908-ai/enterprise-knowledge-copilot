@@ -3,8 +3,8 @@ FROM python:3.11-slim AS base
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=120 \
     HF_HOME=/app/storage/hf-cache
 
 WORKDIR /app/backend
@@ -12,11 +12,18 @@ WORKDIR /app/backend
 # Set INSTALL_LOCAL_MODELS=false for a slim image that uses EMBEDDING_PROVIDER=openai or hash.
 ARG INSTALL_LOCAL_MODELS=true
 
-COPY backend/requirements.txt backend/requirements-local-models.txt ./
-RUN pip install -r requirements.txt \
- && if [ "$INSTALL_LOCAL_MODELS" = "true" ]; then \
-      pip install torch --index-url https://download.pytorch.org/whl/cpu \
-      && pip install -r requirements-local-models.txt; \
+# Each dependency group is its own layer, and pip's download cache is a BuildKit cache mount.
+# On a slow or flaky connection, a cancelled or failed build keeps every wheel it already
+# downloaded, and later builds (or switching INSTALL_LOCAL_MODELS) never re-download them.
+COPY backend/requirements.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --retries 10 -r requirements.txt
+
+COPY backend/requirements-local-models.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip \
+    if [ "$INSTALL_LOCAL_MODELS" = "true" ]; then \
+      pip install --retries 10 torch --index-url https://download.pytorch.org/whl/cpu \
+      && pip install --retries 10 -r requirements-local-models.txt; \
     fi
 
 # Pre-download the default embedding model into the image (copied into the data volume on first run)

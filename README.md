@@ -565,7 +565,9 @@ docker compose down -v           # stop AND delete all data
 | `frontend` | `nginx:alpine` serving the Vite build | 8080 | Proxies `/api`, `/health` and `/docs` to the backend; SPA fallback routing |
 | volume `copilot_data` | | | `/app/storage`: SQLite, ChromaDB, uploads, Hugging Face cache, evaluation reports |
 
-**Slim image:** `INSTALL_LOCAL_MODELS=false docker compose build` skips PyTorch (about 1.5 GB smaller). Use it with `EMBEDDING_PROVIDER=openai` or `hash`.
+**Slim image:** set `INSTALL_LOCAL_MODELS=false` in `.env` to skip PyTorch and the local model (about 1.5 GB smaller and roughly 270 MB less to download). Use it with `EMBEDDING_PROVIDER=openai`, or `hash` with `SIMILARITY_THRESHOLD=0.1`.
+
+**Slow internet?** Builds cache every downloaded package (BuildKit cache mounts), so a cancelled or failed build resumes where it stopped. Start with the slim image and switch to `INSTALL_LOCAL_MODELS=true` later; only the extra layers are downloaded.
 
 **Persistence check:** upload a document, run `docker compose restart`, then reload the knowledge base page. The document is still indexed, and `/health` reports the same `indexed_chunks`.
 
