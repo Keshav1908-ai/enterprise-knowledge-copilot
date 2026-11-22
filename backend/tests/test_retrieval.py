@@ -82,3 +82,35 @@ def test_hybrid_retrieval_combines_keyword_and_vector(indexed_corpus, settings):
 def test_empty_store_returns_no_chunks(settings):
     res = Retriever(settings).retrieve("anything", RetrievalParams.from_settings(settings))
     assert res.chunks == []
+
+
+def test_sentence_transformers_provider_is_configured_correctly(settings, monkeypatch):
+    """The local-model provider passes the configured model, CPU device and normalisation."""
+    import sys
+    import types
+
+    from app.embeddings.providers import create_embeddings
+
+    captured = {}
+
+    class FakeHF:
+        def __init__(self, **kwargs):
+            captured.update(kwargs)
+
+    monkeypatch.setitem(sys.modules, "langchain_huggingface", types.SimpleNamespace(HuggingFaceEmbeddings=FakeHF))
+    s = settings.model_copy(update={"embedding_provider": "sentence-transformers",
+                                    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"})
+    create_embeddings(s)
+    assert captured["model_name"] == "sentence-transformers/all-MiniLM-L6-v2"
+    assert captured["model_kwargs"] == {"device": "cpu"}
+    assert captured["encode_kwargs"]["normalize_embeddings"] is True
+
+
+def test_openai_embeddings_require_api_key(settings):
+    import pytest as _pytest
+
+    from app.core.exceptions import ProviderError
+    from app.embeddings.providers import create_embeddings
+
+    with _pytest.raises(ProviderError, match="OPENAI_API_KEY"):
+        create_embeddings(settings.model_copy(update={"embedding_provider": "openai", "openai_api_key": None}))

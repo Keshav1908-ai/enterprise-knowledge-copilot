@@ -1,0 +1,1751 @@
+{
+  "run_id": "ea799522827e41f5bc525e68e114630c",
+  "label": "offline baseline (hybrid)",
+  "created_at": "2026-11-22T16:12:23.468422",
+  "dataset": "Helix Systems demo benchmark",
+  "synthetic": true,
+  "config": {
+    "top_k": 5,
+    "similarity_threshold": 0.1,
+    "mode": "hybrid",
+    "hybrid_alpha": 0.5,
+    "reranker": "none",
+    "document_ids": null,
+    "embedding_provider": "hash",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "llm_provider": "extractive",
+    "llm_model": "extractive",
+    "chunk_size": 800,
+    "chunk_overlap": 120,
+    "max_questions": null,
+    "ingest_dataset_documents": true
+  },
+  "metrics": {
+    "k": 5,
+    "retrieval": {
+      "precision_at_k": 0.7458,
+      "recall_at_k": 0.95,
+      "mrr": 0.95,
+      "hit_rate": 0.95,
+      "avg_retrieval_latency_ms": 4.2513,
+      "evaluated_questions": 20,
+      "method": "deterministic, ground truth = labelled relevant documents"
+    },
+    "generation": {
+      "faithfulness": 0.95,
+      "answer_relevance": 0.3866,
+      "context_relevance": 0.2209,
+      "citation_coverage": 0.95,
+      "answer_f1": 0.5401,
+      "evaluated_questions": 20,
+      "judge": "heuristic",
+      "method": "automated estimates \u2014 not human-verified ground truth"
+    },
+    "abstention": {
+      "unanswerable_questions": 3,
+      "correct_abstentions": 2,
+      "abstention_accuracy": 0.6667
+    },
+    "performance": {
+      "avg_total_latency_ms": 5.0052,
+      "avg_generation_latency_ms": 0.3687,
+      "total_tokens": null
+    },
+    "errors": 0,
+    "dataset": {
+      "name": "Helix Systems demo benchmark",
+      "synthetic": true,
+      "documents_ingested_for_run": []
+    }
+  },
+  "results": [
+    {
+      "id": "q01",
+      "question": "How many days of paid annual leave do full-time employees get?",
+      "category": "leave",
+      "answerable": true,
+      "expected_answer": "Full-time employees receive 24 days of paid annual leave per calendar year, accruing at 2 days per month.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Full-time employees receive 24 days of paid annual leave per calendar year [1].\n- Employees receive 12 days of paid sick leave per year [2].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.4731,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2916,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2406,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.145,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1854,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00000",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 2,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 7.38,
+        "generation_ms": 0.55,
+        "total_ms": 8.31,
+        "retrieval_breakdown": {
+          "embed_ms": 0.05,
+          "vector_search_ms": 3.54,
+          "keyword_fusion_ms": 3.78
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.5052071823605382,
+        "context_relevance": 0.2671551800326098,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7000000000000001
+      }
+    },
+    {
+      "id": "q02",
+      "question": "How many casual leaves are allowed per year?",
+      "category": "leave",
+      "answerable": true,
+      "expected_answer": "Employees receive 8 days of casual leave per calendar year, which cannot be carried forward.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Employees receive 8 days of casual leave per calendar year for short, unplanned personal needs [1].\n- Employees receive 12 days of paid sick leave per year [1].\n- Full-time employees receive 24 days of paid annual leave per calendar year [2].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.4129,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1493,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1751,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1244,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 2,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.28,
+        "generation_ms": 0.42,
+        "total_ms": 5.15,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 3.45,
+          "keyword_fusion_ms": 0.79
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.3050957017085529,
+        "context_relevance": 0.21539866354637413,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.3404255319148936
+      }
+    },
+    {
+      "id": "q03",
+      "question": "How much unused annual leave can be carried forward and when does it expire?",
+      "category": "leave",
+      "answerable": true,
+      "expected_answer": "Up to 10 days of unused annual leave can be carried forward; it expires if not used by 31 March of the following year.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Up to 10 days of unused annual leave may be carried forward to the next calendar year [1].\n- Carried-forward leave expires if it is not used by 31 March of the following year [1].\n- Unused leave above the carry-forward limit lapses at year end and is not paid out, except on resignation, when accrued but unused annual leave is encashed at the basic salary rate [1].\n- Casual leave cannot be carried forward and cannot be combined with annual leave to extend a vacation [3].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.5502,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2425,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1906,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 3,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 5.87,
+        "generation_ms": 0.3,
+        "total_ms": 6.66,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 5.27,
+          "keyword_fusion_ms": 0.57
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.5789588103701517,
+        "context_relevance": 0.32775994189533636,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.4210526315789474
+      }
+    },
+    {
+      "id": "q04",
+      "question": "When is a medical certificate required for sick leave?",
+      "category": "leave",
+      "answerable": true,
+      "expected_answer": "A medical certificate is required for sick leave longer than 2 consecutive days.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- A medical certificate is required for sick leave longer than 2 consecutive days [1].\n- Employees receive 12 days of paid sick leave per year [1].\n- Unused sick leave may accumulate up to a maximum of 30 days [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.4963,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.157,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1202,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 5.04,
+        "generation_ms": 0.3,
+        "total_ms": 5.67,
+        "retrieval_breakdown": {
+          "embed_ms": 0.07,
+          "vector_search_ms": 3.08,
+          "keyword_fusion_ms": 1.89
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.5925925925925926,
+        "context_relevance": 0.2578104976533832,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.4615384615384615
+      }
+    },
+    {
+      "id": "q05",
+      "question": "How long is paternity leave for non-birthing parents?",
+      "category": "leave",
+      "answerable": true,
+      "expected_answer": "Non-birthing parents get 4 weeks of paid paternity leave, taken within 6 months of birth or adoption.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Non-birthing parents are entitled to 4 weeks of paid paternity leave, which must be taken within 6 months of the child's birth or adoption [1].\n- Birthing parents are entitled to 26 weeks of paid maternity leave [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.3731,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1429,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.125,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1264,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00003",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.56,
+        "generation_ms": 0.38,
+        "total_ms": 5.32,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 3.7,
+          "keyword_fusion_ms": 0.82
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.75,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.4608156130736433,
+        "context_relevance": 0.19188458155071617,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.6153846153846155
+      }
+    },
+    {
+      "id": "q06",
+      "question": "What is the notice period for managers after confirmation?",
+      "category": "hr",
+      "answerable": true,
+      "expected_answer": "The notice period is 90 days for managers and above.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- After confirmation, the notice period is 60 days for individual contributors and 90 days for managers and above [1].\n- During probation the notice period is 15 days [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.3637,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00005",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1246,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1002,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00002",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.35,
+        "generation_ms": 0.41,
+        "total_ms": 5.1,
+        "retrieval_breakdown": {
+          "embed_ms": 0.07,
+          "vector_search_ms": 3.57,
+          "keyword_fusion_ms": 0.7
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.4494665749754947,
+        "context_relevance": 0.19617410008109523,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.4444444444444445
+      }
+    },
+    {
+      "id": "q07",
+      "question": "How long is the probation period for new employees?",
+      "category": "hr",
+      "answerable": true,
+      "expected_answer": "New employees serve a probation period of 6 months, which can be extended once by up to 3 months.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- New employees serve a probation period of 6 months [1].\n- During probation the notice period is 15 days [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2955,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00005",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.2,
+        "generation_ms": 0.23,
+        "total_ms": 4.85,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 3.03,
+          "keyword_fusion_ms": 1.13
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.4951875684721383,
+        "context_relevance": 0.29553088043720516,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.48
+      }
+    },
+    {
+      "id": "q08",
+      "question": "How many days per week can employees work remotely?",
+      "category": "hr",
+      "answerable": true,
+      "expected_answer": "Employees may work remotely up to three days per week.",
+      "relevant_documents": [
+        "employee_handbook.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Employees may work remotely up to three days per week [1].\n- Full-time employees receive 24 days of paid annual leave per calendar year [2].\n- Employees receive 8 days of casual leave per calendar year for short, unplanned personal needs [3].\n- Employees receive 12 days of paid sick leave per year [3].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2892,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1306,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.127,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 2,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 3,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.23,
+        "generation_ms": 0.58,
+        "total_ms": 5.61,
+        "retrieval_breakdown": {
+          "embed_ms": 0.09,
+          "vector_search_ms": 3.23,
+          "keyword_fusion_ms": 0.9
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.3202563076101743,
+        "context_relevance": 0.1822672450442572,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.33333333333333337
+      }
+    },
+    {
+      "id": "q09",
+      "question": "What is the minimum password length for company accounts?",
+      "category": "security",
+      "answerable": true,
+      "expected_answer": "Passwords must be at least 14 characters long.",
+      "relevant_documents": [
+        "it_security_policy.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "I couldn't find information about this in the uploaded documents. Try rephrasing the question, or upload a document that covers this topic.",
+      "status": "no_context",
+      "retrieved": [],
+      "citations": [],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.79,
+        "generation_ms": 0.0,
+        "total_ms": 4.97,
+        "retrieval_breakdown": {
+          "embed_ms": 0.06,
+          "vector_search_ms": 3.69,
+          "keyword_fusion_ms": 1.03
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": true,
+      "retrieval": {
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "reciprocal_rank": 0.0,
+        "hit": 0.0
+      },
+      "generation": {
+        "faithfulness": 0.0,
+        "answer_relevance": 0.0,
+        "context_relevance": null,
+        "method": "heuristic",
+        "citation_coverage": 0.0,
+        "answer_f1": 0.0
+      }
+    },
+    {
+      "id": "q10",
+      "question": "Within how much time must a lost laptop be reported?",
+      "category": "security",
+      "answerable": true,
+      "expected_answer": "Lost or stolen devices must be reported to the IT Service Desk within 1 hour of discovery.",
+      "relevant_documents": [
+        "it_security_policy.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Lost or stolen devices must be reported to the IT Service Desk within 1 hour of discovery so the device can be remotely wiped [1].\n- Any suspected security incident, including phishing emails, malware alerts or accidental data disclosure, must be reported to security@helix.example within 30 minutes [2].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1664,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1459,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1119,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "it_security_policy.md",
+          "page_number": null
+        },
+        {
+          "source_id": 2,
+          "document_name": "it_security_policy.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.42,
+        "generation_ms": 0.41,
+        "total_ms": 4.33,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 2.71,
+          "keyword_fusion_ms": 0.66
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.215716742976478,
+        "context_relevance": 0.14142598261462874,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.4255319148936171
+      }
+    },
+    {
+      "id": "q11",
+      "question": "How quickly must a suspected phishing email be reported and to whom?",
+      "category": "security",
+      "answerable": true,
+      "expected_answer": "Suspected security incidents including phishing must be reported to security@helix.example within 30 minutes.",
+      "relevant_documents": [
+        "it_security_policy.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Any suspected security incident, including phishing emails, malware alerts or accidental data disclosure, must be reported to security@helix.example within 30 minutes [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1251,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.123,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1109,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00001",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "it_security_policy.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.84,
+        "generation_ms": 0.43,
+        "total_ms": 4.65,
+        "retrieval_breakdown": {
+          "embed_ms": 0.05,
+          "vector_search_ms": 3.09,
+          "keyword_fusion_ms": 0.69
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.24273401821882046,
+        "context_relevance": 0.11967845140942675,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7222222222222222
+      }
+    },
+    {
+      "id": "q12",
+      "question": "Which systems require multi-factor authentication?",
+      "category": "security",
+      "answerable": true,
+      "expected_answer": "MFA is mandatory for email, VPN, source-code repositories and all cloud consoles.",
+      "relevant_documents": [
+        "it_security_policy.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Multi-factor authentication (MFA) is mandatory for email, VPN, source-code repositories and all cloud consoles [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.2218,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1158,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00000",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "it_security_policy.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.02,
+        "generation_ms": 0.34,
+        "total_ms": 4.68,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 3.35,
+          "keyword_fusion_ms": 0.63
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.30949223029508643,
+        "context_relevance": 0.16880386121459556,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7692307692307693
+      }
+    },
+    {
+      "id": "q13",
+      "question": "What is the daily meal allowance for international travel?",
+      "category": "finance",
+      "answerable": true,
+      "expected_answer": "The daily meal allowance for international travel is USD 75.",
+      "relevant_documents": [
+        "travel_expense_policy.txt"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- The daily meal allowance is INR 2,500 for domestic travel within India and USD 75 for international travel [2].\n- Domestic flights must be booked at least 14 days in advance and international flights at least 21 days in advance, unless the travel is urgent and approved by a department head [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.2392,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.2363,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.1721,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1899,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00003",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1556,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00001",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 2,
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null
+        },
+        {
+          "source_id": 1,
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.81,
+        "generation_ms": 0.59,
+        "total_ms": 4.96,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 3.1,
+          "keyword_fusion_ms": 0.67
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.6,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.4024689532955313,
+        "context_relevance": 0.19862062758842006,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.32558139534883723
+      }
+    },
+    {
+      "id": "q14",
+      "question": "When is business class allowed on flights?",
+      "category": "finance",
+      "answerable": true,
+      "expected_answer": "Business class is permitted only for international flights longer than 8 hours with vice president approval.",
+      "relevant_documents": [
+        "travel_expense_policy.txt"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Business class is permitted only for international flights longer than 8 hours and requires approval from a vice president [1].\n- Economy class is the standard for all flights [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.2466,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00000",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.7,
+        "generation_ms": 0.17,
+        "total_ms": 4.17,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 2.97,
+          "keyword_fusion_ms": 0.7
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.35416880166057324,
+        "context_relevance": 0.246556836360769,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7272727272727273
+      }
+    },
+    {
+      "id": "q15",
+      "question": "What is the deadline for submitting expense claims?",
+      "category": "finance",
+      "answerable": true,
+      "expected_answer": "Expense claims must be submitted within 30 days; claims after 60 days are not reimbursed.",
+      "relevant_documents": [
+        "travel_expense_policy.txt"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Expense claims must be submitted through the finance portal within 30 days of the expense [1].\n- Claims submitted after 60 days will not be reimbursed [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.3751,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00001",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1271,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.59,
+        "generation_ms": 0.28,
+        "total_ms": 4.26,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 2.89,
+          "keyword_fusion_ms": 0.66
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.4672567184860486,
+        "context_relevance": 0.25111394227660033,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7647058823529412
+      }
+    },
+    {
+      "id": "q16",
+      "question": "What is the mileage reimbursement rate for a personal car?",
+      "category": "finance",
+      "answerable": true,
+      "expected_answer": "Personal car use is reimbursed at INR 12 per kilometre.",
+      "relevant_documents": [
+        "travel_expense_policy.txt"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Use of a personal car for business travel is reimbursed at INR 12 per kilometre, and a personal two-wheeler at INR 5 per kilometre [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.2295,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1556,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00001",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.01,
+        "generation_ms": 0.29,
+        "total_ms": 4.56,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 3.3,
+          "keyword_fusion_ms": 0.67
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.5,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.23338001400466832,
+        "context_relevance": 0.19253283988762715,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.5925925925925926
+      }
+    },
+    {
+      "id": "q17",
+      "question": "How many approving reviews does a pull request need?",
+      "category": "engineering",
+      "answerable": true,
+      "expected_answer": "Every pull request needs at least two approving reviews, one from a code owner.",
+      "relevant_documents": [
+        "engineering_onboarding.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Every pull request needs at least two approving reviews, and one of the reviewers must be a code owner of the changed area [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.3262,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00001",
+          "relevant": true
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "engineering_onboarding.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.87,
+        "generation_ms": 0.13,
+        "total_ms": 4.22,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 3.15,
+          "keyword_fusion_ms": 0.67
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 1.0,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.41989110486518244,
+        "context_relevance": 0.3262363486962221,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7586206896551725
+      }
+    },
+    {
+      "id": "q18",
+      "question": "On which days and times are production deployments allowed?",
+      "category": "engineering",
+      "answerable": true,
+      "expected_answer": "Deployments are allowed Monday to Thursday between 10:00 and 17:00 IST.",
+      "relevant_documents": [
+        "engineering_onboarding.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Production deployments happen through the CD pipeline only; manual changes to production are not allowed [1].\n- Deployments are allowed Monday to Thursday between 10:00 and 17:00 IST [1].\n- Full-time employees receive 24 days of paid annual leave per calendar year [2].\n- No more than 2 consecutive days of casual leave may be taken at a time [4].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.3868,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1217,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": false
+        },
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.1444,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1036,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1133,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00002",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "engineering_onboarding.md",
+          "page_number": null
+        },
+        {
+          "source_id": 2,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 4,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.78,
+        "generation_ms": 0.62,
+        "total_ms": 5.04,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 2.93,
+          "keyword_fusion_ms": 0.81
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.4,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.44136741475237484,
+        "context_relevance": 0.17396598133056407,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.3508771929824561
+      }
+    },
+    {
+      "id": "q19",
+      "question": "How fast must the on-call engineer acknowledge a page?",
+      "category": "engineering",
+      "answerable": true,
+      "expected_answer": "The on-call engineer must acknowledge a page within 10 minutes.",
+      "relevant_documents": [
+        "engineering_onboarding.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- The on-call engineer must acknowledge a page within 10 minutes [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.3675,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00002",
+          "relevant": true
+        },
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.2022,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "travel_expense_policy.txt",
+          "page_number": null,
+          "score": 0.1038,
+          "chunk_id": "86d5eaf3c7f34751a2ea965c100ffd6e-00002",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "engineering_onboarding.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.56,
+        "generation_ms": 0.37,
+        "total_ms": 4.23,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 2.93,
+          "keyword_fusion_ms": 0.59
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.48420012470625234,
+        "context_relevance": 0.22448465889868505,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.8421052631578948
+      }
+    },
+    {
+      "id": "q20",
+      "question": "What is the annual learning budget for engineers?",
+      "category": "engineering",
+      "answerable": true,
+      "expected_answer": "Each engineer has an annual learning budget of INR 50,000.",
+      "relevant_documents": [
+        "engineering_onboarding.md"
+      ],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Each engineer has an annual learning budget of INR 50,000 for courses, books and conferences [1].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.3878,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00003",
+          "relevant": true
+        },
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.1448,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00000",
+          "relevant": true
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1271,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00001",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "engineering_onboarding.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.64,
+        "generation_ms": 0.31,
+        "total_ms": 4.21,
+        "retrieval_breakdown": {
+          "embed_ms": 0.03,
+          "vector_search_ms": 2.93,
+          "keyword_fusion_ms": 0.67
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "retrieval": {
+        "precision_at_k": 0.6666666666666666,
+        "recall_at_k": 1.0,
+        "reciprocal_rank": 1.0,
+        "hit": 1.0
+      },
+      "generation": {
+        "faithfulness": 1.0,
+        "answer_relevance": 0.45355736761107274,
+        "context_relevance": 0.21990543302039012,
+        "method": "heuristic",
+        "citation_coverage": 1.0,
+        "answer_f1": 0.7272727272727273
+      }
+    },
+    {
+      "id": "q21",
+      "question": "What is the company's stock option vesting schedule?",
+      "category": "unanswerable",
+      "answerable": false,
+      "expected_answer": "",
+      "relevant_documents": [],
+      "missing_relevant_documents": [],
+      "answer": "I couldn't find information about this in the uploaded documents. Try rephrasing the question, or upload a document that covers this topic.",
+      "status": "no_context",
+      "retrieved": [
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.1202,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00001",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1111,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00001",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.114,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00003",
+          "relevant": false
+        }
+      ],
+      "citations": [],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.91,
+        "generation_ms": 0.3,
+        "total_ms": 4.42,
+        "retrieval_breakdown": {
+          "embed_ms": 0.04,
+          "vector_search_ms": 3.14,
+          "keyword_fusion_ms": 0.73
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": true,
+      "abstention_correct": true
+    },
+    {
+      "id": "q22",
+      "question": "Who is the CEO of Helix Systems?",
+      "category": "unanswerable",
+      "answerable": false,
+      "expected_answer": "",
+      "relevant_documents": [],
+      "missing_relevant_documents": [],
+      "answer": "Here is what the documents say:\n\n- Helix Systems is not a real company [1].\n- The standard work week at Helix Systems is 40 hours, Monday to Friday [1].\n- Helix Systems observes 12 public holidays per year [3].",
+      "status": "success",
+      "retrieved": [
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.2487,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00000",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1653,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00000",
+          "relevant": false
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1337,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": false
+        },
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.1019,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00003",
+          "relevant": false
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1613,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00002",
+          "relevant": false
+        }
+      ],
+      "citations": [
+        {
+          "source_id": 1,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        },
+        {
+          "source_id": 3,
+          "document_name": "employee_handbook.md",
+          "page_number": null
+        }
+      ],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 3.69,
+        "generation_ms": 0.54,
+        "total_ms": 4.69,
+        "retrieval_breakdown": {
+          "embed_ms": 0.05,
+          "vector_search_ms": 2.88,
+          "keyword_fusion_ms": 0.76
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": false,
+      "abstention_correct": false
+    },
+    {
+      "id": "q23",
+      "question": "Does the company provide free gym memberships?",
+      "category": "unanswerable",
+      "answerable": false,
+      "expected_answer": "",
+      "relevant_documents": [],
+      "missing_relevant_documents": [],
+      "answer": "I couldn't find information about this in the uploaded documents. Try rephrasing the question, or upload a document that covers this topic.",
+      "status": "no_context",
+      "retrieved": [
+        {
+          "document_name": "it_security_policy.md",
+          "page_number": null,
+          "score": 0.114,
+          "chunk_id": "5d454890d4ae4e14a544d3526a377914-00003",
+          "relevant": false
+        },
+        {
+          "document_name": "engineering_onboarding.md",
+          "page_number": null,
+          "score": 0.1202,
+          "chunk_id": "378dac2f91814975a9c4e1b2e900fc0a-00001",
+          "relevant": false
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1495,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00004",
+          "relevant": false
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1364,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00005",
+          "relevant": false
+        },
+        {
+          "document_name": "employee_handbook.md",
+          "page_number": null,
+          "score": 0.1336,
+          "chunk_id": "ad91388b58e545a587c31463c8b1caa7-00003",
+          "relevant": false
+        }
+      ],
+      "citations": [],
+      "latency": {
+        "rewrite_ms": 0.0,
+        "retrieval_ms": 4.24,
+        "generation_ms": 0.53,
+        "total_ms": 5.06,
+        "retrieval_breakdown": {
+          "embed_ms": 0.05,
+          "vector_search_ms": 3.51,
+          "keyword_fusion_ms": 0.66
+        }
+      },
+      "token_usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "abstained": true,
+      "abstention_correct": true
+    }
+  ]
+}
