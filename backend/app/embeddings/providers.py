@@ -33,18 +33,26 @@ _STOPWORDS = frozenset(
 )
 
 
+def _stem(tok: str) -> str:
+    """Tiny, predictable suffix stripper (plural and common verb endings)."""
+    if len(tok) <= 3:
+        return tok
+    if tok.endswith("ies") and len(tok) > 4:
+        return tok[:-3] + "y"
+    if tok.endswith("es") and tok[:-2].endswith(("s", "x", "z", "ch", "sh")):
+        return tok[:-2]
+    if tok.endswith("s") and not tok.endswith(("ss", "us", "is")):
+        return tok[:-1]
+    if tok.endswith("ing") and len(tok) > 5:
+        return tok[:-3]
+    if tok.endswith("ed") and len(tok) > 4:
+        return tok[:-2]
+    return tok
+
+
 def tokenize(text: str) -> list[str]:
-    """Lowercase word tokens with naive suffix stripping (shared by hash embeddings and BM25)."""
-    out = []
-    for tok in _TOKEN.findall(text.lower()):
-        if tok in _STOPWORDS:
-            continue
-        for suffix in ("ing", "ies", "es", "s", "ed"):
-            if len(tok) > len(suffix) + 2 and tok.endswith(suffix):
-                tok = tok[: -len(suffix)] + ("y" if suffix == "ies" else "")
-                break
-        out.append(tok)
-    return out
+    """Lowercase word tokens with light stemming (shared by hash embeddings, BM25 and metrics)."""
+    return [_stem(t) for t in _TOKEN.findall(text.lower()) if len(t) > 1 and t not in _STOPWORDS]
 
 
 class HashEmbeddings(Embeddings):

@@ -1,0 +1,31 @@
+{
+  "name": "Helix Systems demo benchmark",
+  "synthetic": true,
+  "description": "Hand-written questions over four fictional Helix Systems policy documents. Expected answers and relevant documents were labelled manually from the source text. Includes unanswerable questions to test abstention.",
+  "documents_dir": "documents",
+  "questions": [
+    {"id": "q01", "category": "leave", "question": "How many days of paid annual leave do full-time employees get?", "expected_answer": "Full-time employees receive 24 days of paid annual leave per calendar year, accruing at 2 days per month.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q02", "category": "leave", "question": "How many casual leaves are allowed per year?", "expected_answer": "Employees receive 8 days of casual leave per calendar year, which cannot be carried forward.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q03", "category": "leave", "question": "How much unused annual leave can be carried forward and when does it expire?", "expected_answer": "Up to 10 days of unused annual leave can be carried forward; it expires if not used by 31 March of the following year.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q04", "category": "leave", "question": "When is a medical certificate required for sick leave?", "expected_answer": "A medical certificate is required for sick leave longer than 2 consecutive days.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q05", "category": "leave", "question": "How long is paternity leave for non-birthing parents?", "expected_answer": "Non-birthing parents get 4 weeks of paid paternity leave, taken within 6 months of birth or adoption.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q06", "category": "hr", "question": "What is the notice period for managers after confirmation?", "expected_answer": "The notice period is 90 days for managers and above.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q07", "category": "hr", "question": "How long is the probation period for new employees?", "expected_answer": "New employees serve a probation period of 6 months, which can be extended once by up to 3 months.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q08", "category": "hr", "question": "How many days per week can employees work remotely?", "expected_answer": "Employees may work remotely up to three days per week.", "relevant_documents": ["employee_handbook.md"]},
+    {"id": "q09", "category": "security", "question": "What is the minimum password length for company accounts?", "expected_answer": "Passwords must be at least 14 characters long.", "relevant_documents": ["it_security_policy.md"]},
+    {"id": "q10", "category": "security", "question": "Within how much time must a lost laptop be reported?", "expected_answer": "Lost or stolen devices must be reported to the IT Service Desk within 1 hour of discovery.", "relevant_documents": ["it_security_policy.md"]},
+    {"id": "q11", "category": "security", "question": "How quickly must a suspected phishing email be reported and to whom?", "expected_answer": "Suspected security incidents including phishing must be reported to security@helix.example within 30 minutes.", "relevant_documents": ["it_security_policy.md"]},
+    {"id": "q12", "category": "security", "question": "Which systems require multi-factor authentication?", "expected_answer": "MFA is mandatory for email, VPN, source-code repositories and all cloud consoles.", "relevant_documents": ["it_security_policy.md"]},
+    {"id": "q13", "category": "finance", "question": "What is the daily meal allowance for international travel?", "expected_answer": "The daily meal allowance for international travel is USD 75.", "relevant_documents": ["travel_expense_policy.txt"]},
+    {"id": "q14", "category": "finance", "question": "When is business class allowed on flights?", "expected_answer": "Business class is permitted only for international flights longer than 8 hours with vice president approval.", "relevant_documents": ["travel_expense_policy.txt"]},
+    {"id": "q15", "category": "finance", "question": "What is the deadline for submitting expense claims?", "expected_answer": "Expense claims must be submitted within 30 days; claims after 60 days are not reimbursed.", "relevant_documents": ["travel_expense_policy.txt"]},
+    {"id": "q16", "category": "finance", "question": "What is the mileage reimbursement rate for a personal car?", "expected_answer": "Personal car use is reimbursed at INR 12 per kilometre.", "relevant_documents": ["travel_expense_policy.txt"]},
+    {"id": "q17", "category": "engineering", "question": "How many approving reviews does a pull request need?", "expected_answer": "Every pull request needs at least two approving reviews, one from a code owner.", "relevant_documents": ["engineering_onboarding.md"]},
+    {"id": "q18", "category": "engineering", "question": "On which days and times are production deployments allowed?", "expected_answer": "Deployments are allowed Monday to Thursday between 10:00 and 17:00 IST.", "relevant_documents": ["engineering_onboarding.md"]},
+    {"id": "q19", "category": "engineering", "question": "How fast must the on-call engineer acknowledge a page?", "expected_answer": "The on-call engineer must acknowledge a page within 10 minutes.", "relevant_documents": ["engineering_onboarding.md"]},
+    {"id": "q20", "category": "engineering", "question": "What is the annual learning budget for engineers?", "expected_answer": "Each engineer has an annual learning budget of INR 50,000.", "relevant_documents": ["engineering_onboarding.md"]},
+    {"id": "q21", "category": "unanswerable", "question": "What is the company's stock option vesting schedule?", "expected_answer": "", "relevant_documents": [], "answerable": false},
+    {"id": "q22", "category": "unanswerable", "question": "Who is the CEO of Helix Systems?", "expected_answer": "", "relevant_documents": [], "answerable": false},
+    {"id": "q23", "category": "unanswerable", "question": "Does the company provide free gym memberships?", "expected_answer": "", "relevant_documents": [], "answerable": false}
+  ]
+}

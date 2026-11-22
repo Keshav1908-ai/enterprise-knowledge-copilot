@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings
 from app.core.exceptions import NotFoundError
 from app.core.logging import get_logger
-from app.database.models import Conversation, Message, new_id
+from app.database.models import Conversation, Message, new_id, utcnow
 from app.evaluation.metrics import citation_coverage, is_abstention, lexical_faithfulness
 from app.generation.citations import build_citations
 from app.generation.llm import BaseGenerator, get_generator
@@ -163,7 +163,8 @@ class ChatService:
                 generation_ms = 0.0
                 gen_mode, gen_model = self.generator.provider, self.generator.model
             else:
-                gen = self.generator.generate(question if not history else standalone, sources, history)
+                # The LLM sees the original question + history; the standalone form drives retrieval.
+                gen = self.generator.generate(question, sources, history)
                 generation_ms = gen.latency_ms
                 gen_mode, gen_model = gen.provider, gen.model
                 if gen.input_tokens is not None or gen.output_tokens is not None:
@@ -206,7 +207,7 @@ class ChatService:
                              "generation_mode": gen_mode, "grounding": grounding},
                 )
                 db.add(assistant)
-                conv.updated_at = assistant.created_at
+                conv.updated_at = utcnow()
                 db.flush()
                 message_id = assistant.id
 

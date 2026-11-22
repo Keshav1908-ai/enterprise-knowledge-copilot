@@ -28,7 +28,7 @@ class NotFoundError(AppError):
 
 
 class ValidationFailedError(AppError):
-    status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
+    status_code = 422
     code = "validation_failed"
 
 
@@ -38,7 +38,7 @@ class UnsupportedFileError(AppError):
 
 
 class FileTooLargeError(AppError):
-    status_code = status.HTTP_413_REQUEST_ENTITY_TOO_LARGE
+    status_code = 413
     code = "file_too_large"
 
 
@@ -48,7 +48,7 @@ class ConflictError(AppError):
 
 
 class ExtractionError(AppError):
-    status_code = status.HTTP_422_UNPROCESSABLE_ENTITY
+    status_code = 422
     code = "extraction_failed"
 
 
@@ -74,7 +74,7 @@ def register_exception_handlers(app: FastAPI) -> None:
             {"loc": list(e.get("loc", [])), "msg": e.get("msg"), "type": e.get("type")} for e in exc.errors()
         ]
         return JSONResponse(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status_code=422,
             content=_error_body("validation_failed", "Request validation failed", errors),
         )
 

@@ -1,0 +1,34 @@
+HELIX SYSTEMS TRAVEL AND EXPENSE POLICY
+
+Fictional sample document created for the Enterprise Knowledge Copilot demo.
+Version 3.0. Owner: Finance.
+
+1. PURPOSE
+
+This policy explains how employees book business travel and claim reimbursement for business expenses.
+
+2. BOOKING TRAVEL
+
+All flights and hotels must be booked through the corporate travel portal. Domestic flights must be booked at least 14 days in advance and international flights at least 21 days in advance, unless the travel is urgent and approved by a department head.
+
+Economy class is the standard for all flights. Business class is permitted only for international flights longer than 8 hours and requires approval from a vice president.
+
+3. DAILY ALLOWANCES
+
+The daily meal allowance is INR 2,500 for domestic travel within India and USD 75 for international travel. Hotel stays are capped at INR 7,000 per night in metro cities and INR 5,000 per night in other cities.
+
+Alcohol is not reimbursable, except at client entertainment events approved in advance by a director.
+
+4. SUBMITTING EXPENSE CLAIMS
+
+Expense claims must be submitted through the finance portal within 30 days of the expense. Itemised receipts are required for every expense above INR 500. Claims submitted after 60 days will not be reimbursed.
+
+Approved claims are reimbursed with the next monthly payroll cycle, provided they are approved by the 20th of the month.
+
+5. COMPANY CARDS
+
+Corporate credit cards are issued to employees who travel more than six times a year. Corporate cards must not be used for personal expenses. Any personal charge made by mistake must be repaid within 7 days.
+
+6. MILEAGE
+
+Use of a personal car for business travel is reimbursed at INR 12 per kilometre, and a personal two-wheeler at INR 5 per kilometre. Commuting between home and the regular office is not reimbursable.

@@ -22,7 +22,7 @@ from app.generation.prompts import NO_CONTEXT_ANSWER, RAG_PROMPT, REWRITE_PROMPT
 
 logger = get_logger(__name__)
 
-_SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
+_SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+(?!\[)|\n+")
 
 
 @dataclass
@@ -56,15 +56,23 @@ class BaseGenerator(ABC):
 
 
 def split_sentences(text: str) -> list[str]:
+    """Sentence split that keeps trailing citation markers ("... day. [2]") attached."""
     return [s.strip(" -•*\t") for s in _SENTENCE_SPLIT.split(text) if len(s.strip()) > 15]
+
+
+def _is_heading(sentence: str) -> bool:
+    return sentence.lstrip().startswith("#") or (len(sentence.split()) < 6 and not sentence.rstrip().endswith("."))
 
 
 class ExtractiveGenerator(BaseGenerator):
     provider = "extractive"
     model = "extractive-v1 (local, no LLM)"
 
-    def __init__(self, max_sentences: int = 4) -> None:
+    def __init__(self, max_sentences: int = 4, min_query_coverage: float = 0.3) -> None:
         self.max_sentences = max_sentences
+        # A sentence must cover this share of the question's content words to be used;
+        # otherwise the generator abstains rather than returning loosely related text.
+        self.min_query_coverage = min_query_coverage
 
     def generate(self, question: str, sources: list[dict], history: list[dict]) -> GenerationOutput:
         t0 = time.perf_counter()
@@ -73,11 +81,13 @@ class ExtractiveGenerator(BaseGenerator):
         for s in sources:
             rank_weight = 1.0 + max(0.0, float(s.get("score") or 0.0))
             for pos, sent in enumerate(split_sentences(s["text"])):
+                if _is_heading(sent):
+                    continue
                 st = set(tokenize(sent))
                 if not st:
                     continue
                 overlap = len(q_tokens & st)
-                if overlap == 0:
+                if overlap == 0 or overlap / (len(q_tokens) or 1) < self.min_query_coverage:
                     continue
                 score = (overlap / (len(q_tokens) or 1)) * rank_weight - pos * 0.001
                 scored.append((score, s["source_id"], sent))
@@ -97,7 +107,7 @@ class ExtractiveGenerator(BaseGenerator):
         if not picked:
             text = NO_CONTEXT_ANSWER
         else:
-            lines = [f"- {sent.rstrip('.')}. [{sid}]" for sid, sent in picked]
+            lines = [f"- {sent.rstrip('. ')} [{sid}]." for sid, sent in picked]
             text = "Here is what the documents say:\n\n" + "\n".join(lines)
         return GenerationOutput(
             text=text, provider=self.provider, model=self.model, latency_ms=(time.perf_counter() - t0) * 1000
