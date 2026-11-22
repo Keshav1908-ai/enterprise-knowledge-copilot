@@ -37,7 +37,7 @@ def strip_invalid_markers(text: str, valid_ids: set[int]) -> str:
 
 def best_excerpt(chunk_text: str, answer: str, max_chars: int = 420) -> str:
     """The chunk sentence window with the highest lexical overlap with the answer."""
-    sentences = split_sentences(chunk_text) or [chunk_text]
+    sentences = [s for s in split_sentences(chunk_text) if not s.lstrip().startswith("#")] or [chunk_text]
     ans = set(tokenize(answer))
     best_i, best = 0, -1.0
     for i, s in enumerate(sentences):
