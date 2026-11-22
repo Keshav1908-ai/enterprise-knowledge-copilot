@@ -95,6 +95,12 @@ def test_clean_text_normalises_artifacts():
     assert "\n\n\n" not in out and "\x07" not in out
 
 
+def test_clean_text_joins_pdf_soft_wraps_but_keeps_lists():
+    out = clean_text("A certificate is required for\nabsences longer than 2 days.\n- first item\n- second item")
+    assert "required for absences" in out
+    assert "\n- first item\n- second item" in out
+
+
 def test_chunking_respects_size_overlap_and_metadata():
     text = " ".join(f"Sentence number {i} describes a policy detail." for i in range(120))
     chunks = chunk_pages([PageText(text, 3)], document_id="doc1", chunk_size=300, chunk_overlap=60,

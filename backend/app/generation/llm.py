@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import math
 import re
 import time
 from abc import ABC, abstractmethod
@@ -64,7 +65,14 @@ def _is_heading(sentence: str) -> bool:
     s = sentence.strip()
     letters = [c for c in s if c.isalpha()]
     shouting = bool(letters) and sum(c.isupper() for c in letters) / len(letters) > 0.8
-    return s.startswith("#") or shouting or (len(s.split()) < 6 and not s.endswith("."))
+    # Short label-like lines are headings unless they carry a figure (table rows such as
+    # "Bereavement leave 5 days" are content).
+    short_label = len(s.split()) < 8 and not s.endswith(".") and not any(c.isdigit() for c in s)
+    words = [w for w in re.findall(r"[A-Za-z]+", s) if len(w) > 3]
+    title_case = (
+        not s.endswith(".") and len(words) >= 2 and sum(w[0].isupper() for w in words) / len(words) >= 0.75
+    )
+    return s.startswith("#") or shouting or short_label or title_case
 
 
 class ExtractiveGenerator(BaseGenerator):
@@ -80,20 +88,37 @@ class ExtractiveGenerator(BaseGenerator):
     def generate(self, question: str, sources: list[dict], history: list[dict]) -> GenerationOutput:
         t0 = time.perf_counter()
         q_tokens = set(tokenize(question))
-        scored: list[tuple[float, int, str]] = []
+        candidates: list[tuple[int, int, str, set[str], float]] = []
         for s in sources:
             rank_weight = 1.0 + max(0.0, float(s.get("score") or 0.0))
             for pos, sent in enumerate(split_sentences(s["text"])):
                 if _is_heading(sent):
                     continue
                 st = set(tokenize(sent))
-                if not st:
-                    continue
-                overlap = len(q_tokens & st)
-                if overlap == 0 or overlap / (len(q_tokens) or 1) < self.min_query_coverage:
-                    continue
-                score = (overlap / (len(q_tokens) or 1)) * rank_weight - pos * 0.001
-                scored.append((score, s["source_id"], sent))
+                if st:
+                    candidates.append((s["source_id"], pos, sent, st, rank_weight))
+
+        # IDF over candidate sentences: rare, specific words ("bereavement") outweigh
+        # generic ones ("employees", "days") when deciding which sentence answers the question.
+        n = len(candidates) or 1
+        df: dict[str, int] = {}
+        for *_, st, _ in candidates:
+            for t in st & q_tokens:
+                df[t] = df.get(t, 0) + 1
+        idf = {t: math.log(1 + n / (df.get(t, 0) + 0.5)) for t in q_tokens}
+        q_weight = sum(idf.values()) or 1.0
+
+        scored: list[tuple[float, int, str]] = []
+        for sid, pos, sent, st, rank_weight in candidates:
+            matched = q_tokens & st
+            if not matched:
+                continue
+            # Blend plain and IDF-weighted coverage: IDF promotes specific terms, the plain share
+            # keeps generic-but-central words ("annual leave") from being drowned out.
+            coverage = 0.5 * (len(matched) / len(q_tokens)) + 0.5 * (sum(idf[t] for t in matched) / q_weight)
+            if coverage < self.min_query_coverage:
+                continue
+            scored.append((coverage * rank_weight - pos * 0.001, sid, sent))
         scored.sort(key=lambda x: x[0], reverse=True)
 
         picked: list[tuple[int, str]] = []
