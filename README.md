@@ -450,6 +450,7 @@ enterprise-knowledge-copilot/
 ├── docs/screenshots/
 ├── storage/                        # local runtime data (git-ignored)
 ├── docker-compose.yml
+├── start-windows.bat / stop-windows.bat   # one-click start/stop on Windows
 ├── .env.example
 └── README.md
 ```
@@ -466,6 +467,8 @@ cd enterprise-knowledge-copilot
 cp .env.example .env          # Windows PowerShell: Copy-Item .env.example .env
 docker compose up --build
 ```
+
+**Windows shortcut:** with Docker Desktop running, double-click **`start-windows.bat`**. It creates `.env` if missing, builds and starts the containers, waits for the health check and opens the app. `stop-windows.bat` stops it (data is kept).
 
 Then open:
 
